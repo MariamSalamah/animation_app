@@ -9,13 +9,34 @@ class RealHomePage extends StatefulWidget {
 
 class _RealHomePageState extends State<RealHomePage>   with TickerProviderStateMixin {
 
-  late AnimationController animcontroller;
+  late AnimationController yellowAnimController;
+  late AnimationController greenAnimController;
+  late AnimationController redAnimController;
+  late AnimationController blueAnimController;
 
 
   void initState() {
     super.initState();
-    animcontroller = AnimationController(
+    yellowAnimController = AnimationController(
+      duration: const Duration(seconds: 3),
+      vsync: this,
+
+    )..repeat();
+
+    greenAnimController = AnimationController(
       duration: const Duration(seconds: 5),
+      vsync: this,
+
+    )..repeat();
+
+    redAnimController = AnimationController(
+      duration: const Duration(seconds: 7),
+      vsync: this,
+
+    )..repeat();
+
+    blueAnimController = AnimationController(
+      duration: const Duration(seconds: 10),
       vsync: this,
 
     )..repeat();
@@ -23,7 +44,7 @@ class _RealHomePageState extends State<RealHomePage>   with TickerProviderStateM
 
   }
   // Animatable sizDuration = Tween<double>(begin: 1, end: 3 );
-  Tween sizDuration = Tween<double>(begin: 1, end: 3 );
+  Tween sizDuration = Tween<double>(begin: 1, end: 1.5 );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,11 +62,13 @@ class _RealHomePageState extends State<RealHomePage>   with TickerProviderStateM
                 child: Row(
                   children: [
                     TweenAnimationBuilder(
+                      tween: sizDuration,
+                      duration: Duration(seconds: 3),
                       builder:
                           (BuildContext context, Object? value, Widget? child) {
                         return Transform.scale(
                           scale: sizDuration.evaluate(
-                              AlwaysStoppedAnimation(animcontroller.value)),
+                              AlwaysStoppedAnimation(yellowAnimController.value)),
                           child: Container(
                             // alignment:  FractionalOffset(0.5, 0.5),
                             width: 100,
@@ -54,21 +77,29 @@ class _RealHomePageState extends State<RealHomePage>   with TickerProviderStateM
                           ),
                         );
                       },
-                      tween: sizDuration,
-                      duration: Duration(seconds: 5),
                     ),
+
                     SizedBox(
                       width: 10,
                     ),
-                    Transform.scale(
-                      scale: 1,
-                      child: Container(
-                        // alignment:  FractionalOffset(0.5, 0.5),
-                        height: 100,
-                        width: 100,
-                        color: Colors.lightGreenAccent,
-                      ),
-                    )
+                    TweenAnimationBuilder(
+                      tween: sizDuration,
+                      duration: Duration(seconds: 5),
+                      builder:
+                          (BuildContext context, Object? value, Widget? child) {
+                        return Transform.scale(
+                          scale: sizDuration.evaluate(
+                              AlwaysStoppedAnimation(greenAnimController.value)),
+                          child: Container(
+                            // alignment:  FractionalOffset(0.5, 0.5),
+                            width: 100,
+                            height: 100,
+                            color: Colors.lightGreenAccent,
+                          ),
+                        );
+                      },
+
+                    ),
                   ],
                 ),
               ),
@@ -78,27 +109,45 @@ class _RealHomePageState extends State<RealHomePage>   with TickerProviderStateM
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Transform.scale(
-                      scale: 1,
-                      child: Container(
-                        // alignment:  FractionalOffset(0.5, 0.5),
-                        height: 100,
-                        width: 100,
-                        color: Colors.redAccent,
-                      ),
+                    TweenAnimationBuilder(
+                      tween: sizDuration,
+                      duration: Duration(seconds: 7),
+                      builder:
+                          (BuildContext context, Object? value, Widget? child) {
+                        return Transform.scale(
+                          scale: sizDuration.evaluate(
+                              AlwaysStoppedAnimation(redAnimController.value)),
+                          child: Container(
+                            // alignment:  FractionalOffset(0.5, 0.5),
+                            width: 100,
+                            height: 100,
+                            color: Colors.redAccent,
+                          ),
+                        );
+                      },
+
                     ),
                     SizedBox(
                       width: 10,
                     ),
-                    Transform.scale(
-                      scale: 1,
-                      child: Container(
-                        // alignment:  FractionalOffset(0.5, 0.5),
-                        height: 100,
-                        width: 100,
-                        color: Colors.lightBlueAccent,
-                      ),
-                    )
+                    TweenAnimationBuilder(
+                      tween: sizDuration,
+                      duration: Duration(seconds: 10),
+                      builder:
+                          (BuildContext context, Object? value, Widget? child) {
+                        return Transform.scale(
+                          scale: sizDuration.evaluate(
+                              AlwaysStoppedAnimation(blueAnimController.value)),
+                          child: Container(
+                            // alignment:  FractionalOffset(0.5, 0.5),
+                            width: 100,
+                            height: 100,
+                            color: Colors.lightBlueAccent,
+                          ),
+                        );
+                      },
+
+                    ),
                   ],
                 ),
               ),
