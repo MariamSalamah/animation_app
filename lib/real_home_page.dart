@@ -14,6 +14,13 @@ class _RealHomePageState extends State<RealHomePage>   with TickerProviderStateM
   late AnimationController redAnimController;
   late AnimationController blueAnimController;
 
+   late bool yellowBool= true;
+  late bool greenBool= false;
+  late bool redBool= false;
+  late bool blueBool= false;
+
+
+
 
   void initState() {
     super.initState();
@@ -24,19 +31,19 @@ class _RealHomePageState extends State<RealHomePage>   with TickerProviderStateM
     )..repeat();
 
     greenAnimController = AnimationController(
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 3),
       vsync: this,
 
     )..repeat();
 
     redAnimController = AnimationController(
-      duration: const Duration(seconds: 7),
+      duration: const Duration(seconds: 3),
       vsync: this,
 
     )..repeat();
 
     blueAnimController = AnimationController(
-      duration: const Duration(seconds: 10),
+      duration: const Duration(seconds: 3),
       vsync: this,
 
     )..repeat();
@@ -62,13 +69,19 @@ class _RealHomePageState extends State<RealHomePage>   with TickerProviderStateM
                 child: Row(
                   children: [
                     TweenAnimationBuilder(
+                      onEnd: (){
+                        setState(() {
+                          greenBool=true;
+                          yellowBool=false;
+                        });
+                      },
                       tween: sizDuration,
                       duration: Duration(seconds: 3),
                       builder:
                           (BuildContext context, Object? value, Widget? child) {
                         return Transform.scale(
-                          scale: sizDuration.evaluate(
-                              AlwaysStoppedAnimation(yellowAnimController.value)),
+                          scale: yellowBool? sizDuration.evaluate(
+                              AlwaysStoppedAnimation(yellowAnimController.value)):1,
                           child: Container(
                             // alignment:  FractionalOffset(0.5, 0.5),
                             width: 100,
@@ -83,13 +96,19 @@ class _RealHomePageState extends State<RealHomePage>   with TickerProviderStateM
                       width: 10,
                     ),
                     TweenAnimationBuilder(
+                      onEnd: (){
+                        setState(() {
+                          redBool=true;
+                          greenBool=false;
+                        });
+                      },
                       tween: sizDuration,
                       duration: Duration(seconds: 5),
                       builder:
                           (BuildContext context, Object? value, Widget? child) {
                         return Transform.scale(
-                          scale: sizDuration.evaluate(
-                              AlwaysStoppedAnimation(greenAnimController.value)),
+                          scale: greenBool? sizDuration.evaluate(
+                              AlwaysStoppedAnimation(greenAnimController.value)) : 1,
                           child: Container(
                             // alignment:  FractionalOffset(0.5, 0.5),
                             width: 100,
@@ -110,13 +129,19 @@ class _RealHomePageState extends State<RealHomePage>   with TickerProviderStateM
                   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     TweenAnimationBuilder(
+                      onEnd: (){
+                        setState(() {
+                          blueBool=true;
+                          redBool=false;
+                        });
+                      },
                       tween: sizDuration,
                       duration: Duration(seconds: 7),
                       builder:
                           (BuildContext context, Object? value, Widget? child) {
                         return Transform.scale(
-                          scale: sizDuration.evaluate(
-                              AlwaysStoppedAnimation(redAnimController.value)),
+                          scale: redBool? sizDuration.evaluate(
+                              AlwaysStoppedAnimation(redAnimController.value)) : 1,
                           child: Container(
                             // alignment:  FractionalOffset(0.5, 0.5),
                             width: 100,
@@ -131,13 +156,19 @@ class _RealHomePageState extends State<RealHomePage>   with TickerProviderStateM
                       width: 10,
                     ),
                     TweenAnimationBuilder(
+                      onEnd: (){
+                        setState(() {
+                          // yellowBool=true;
+                          blueBool=false;
+                        });
+                      },
                       tween: sizDuration,
                       duration: Duration(seconds: 10),
                       builder:
                           (BuildContext context, Object? value, Widget? child) {
                         return Transform.scale(
-                          scale: sizDuration.evaluate(
-                              AlwaysStoppedAnimation(blueAnimController.value)),
+                          scale: blueBool? sizDuration.evaluate(
+                              AlwaysStoppedAnimation(blueAnimController.value)) : 1,
                           child: Container(
                             // alignment:  FractionalOffset(0.5, 0.5),
                             width: 100,
